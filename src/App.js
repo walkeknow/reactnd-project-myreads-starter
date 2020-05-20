@@ -8,7 +8,7 @@ class BooksApp extends React.Component {
   state = {
     libraryBooks: [
       {
-        bookId: '',
+        id: '',
         shelf: 'Want to Read',
         title: '',
         authors: ['A', 'B'],

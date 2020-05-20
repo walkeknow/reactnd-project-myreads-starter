@@ -4,7 +4,9 @@ function Book({ book }) {
   return (
     <div className="book">
       <div className="book-top">
-        <div className="book-cover" style={{ width: 128, height: 170, backgroundImage: `url('${book.imageLinks.thumbnail}')` }}></div>
+        {book.imageLinks && book.imageLinks.thumbnail && (
+          <div className="book-cover" style={{ width: 128, height: 170, backgroundImage: `url('${book.imageLinks.thumbnail}')` }}></div>
+        )}
         <div className="book-shelf-changer">
           <select>
             <option value="move" disabled>Move to...</option>
@@ -17,9 +19,11 @@ function Book({ book }) {
       </div>
       <div className="book-title">{book.title}</div>
       <div className="book-authors">
-        {book.authors.map((author, index) => (
-          <span key={index}>{author}<br /></span>
-        ))}
+        {book.authors && (
+          book.authors.map((author, index) => (
+            <span key={index}>{author}<br /></span>
+          )))
+        }
       </div>
     </div>
 

@@ -1,10 +1,13 @@
 import React from 'react'
 import BookList from './BookList'
 
-function SearchBooksResults({books}) {
+function SearchBooksResults({ books, loading }) {
   return (
     <div className="search-books-results">
-      <BookList books={books}></BookList>
+      {loading ? (
+        <span>Loading...</span>) : (
+          <BookList books={books}></BookList>
+        )}
     </div>
   )
 }
