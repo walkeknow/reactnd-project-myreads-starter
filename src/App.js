@@ -12,6 +12,9 @@ class BooksApp extends React.Component {
       wantToRead: [],
       read: []
     },
+    bookShelf: [
+
+    ]
   }
 
   componentDidMount() {
@@ -45,7 +48,17 @@ class BooksApp extends React.Component {
       })
   }
 
+  getBooksFromState = (books) => {
+    for (const bookId of books) {
+      BooksAPI.get(bookId)
+        .then((book) => {
+          console.log(book)
+        })
+    }
+  }
+
   bookStatus = (bookId) => {
+    console.log(this.state.libraryBooks)
     for (const [key, valueArray] of Object.entries(this.state.libraryBooks)) {
       if (key === 'currentlyReading') {
         if (valueArray.includes(bookId)) {
@@ -62,23 +75,18 @@ class BooksApp extends React.Component {
           return 'read'
         }
       }
-      else {
-        console.log("reached")
-        return 'none'
-      }
     }
+    return 'none'
   }
 
   updateLibrary = (book, bookshelf) => {
-    if (bookshelf !== "none") {
-      BooksAPI.update(book, bookshelf)
-        .then(books => {
-          console.log('API:', books)
-          this.setState(() => ({
-            libraryBooks: books
-          }))
-        })
-    }
+    BooksAPI.update(book, bookshelf)
+      .then(books => {
+        console.log('API:', books)
+        this.setState(() => ({
+          libraryBooks: {...books}
+        }))
+      })
   }
 
   render() {

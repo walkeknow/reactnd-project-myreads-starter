@@ -1,25 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 import BookList from './BookList'
 
-/* componentDidMount() {
-  BooksAPI.getAll()
-  .then((books) => {
-    console.log(books)
-    this.setState(()=>({
-      libraryBooks: books
-    }))
-  })
-} */
+class Bookshelf extends Component {
+  state = {
+    books: []
+  }
 
-function Bookshelf({ title, books }) {
-  return (
-    <div className="bookshelf">
-      <h2 className="bookshelf-title">{title}</h2>
-      <div className="bookshelf-books">
-      <BookList books={books}></BookList>
+  render() {
+    const { title } = this.props
+    return (
+      <div className="bookshelf">
+        <h2 className="bookshelf-title">{title}</h2>
+        <div className="bookshelf-books">
+          <BookList books={this.state.books}></BookList>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
 }
 
 export default Bookshelf

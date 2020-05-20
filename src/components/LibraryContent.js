@@ -8,9 +8,9 @@ function LibraryContent({ libraryBooks }) {
     'Read'
   ]
   console.log(libraryBooks)
-  const currentBooks = libraryBooks.filter(book => book.shelf === titles[0])
-  const futureBooks = libraryBooks.filter(book => book.shelf === titles[1])
-  const pastBooks = libraryBooks.filter(book => book.shelf === titles[2])
+  const currentBooks = libraryBooks.currentlyReading
+  const futureBooks = libraryBooks.wantToRead
+  const pastBooks = libraryBooks.read
   return (
     <div className="list-books-content">
       <div>
