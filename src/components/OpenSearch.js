@@ -7,7 +7,7 @@ function OpenSearch({ changePage }) {
       <Link to={{
         pathname: '/search'
       }}>
-      <button>Add a book</button>
+        <button>Add a book</button>
       </Link>
     </div>
   )

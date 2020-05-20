@@ -11,7 +11,7 @@ function BookList({ books, updateLibrary, bookStatus }) {
             book={book}
             updateLibrary={updateLibrary}
             bookStatus={bookStatus} />
-      </li>))}
+        </li>))}
     </ol>
   )
 }
