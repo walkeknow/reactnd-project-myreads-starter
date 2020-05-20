@@ -1,19 +1,16 @@
 import React from 'react'
 import Book from './Book'
 
-function BookList({ books }) {
+function BookList({ books, updateLibrary, bookStatus }) {
   return (
     <ol className="books-grid">
-      {books.length !== 0 ? (
-        books.map((book, index) => (
-          <li key={index}>
-            <Book book={book}></Book>
-          </li>
-        ))
-      ):
-      (
-        <li>Sorry! No related books found.</li>
-      )}
+      {books.map((book, index) => (
+        <li key={index}>
+          <Book
+            book={book}
+            updateLibrary={updateLibrary}
+            bookStatus={bookStatus} />
+      </li>))}
     </ol>
   )
 }

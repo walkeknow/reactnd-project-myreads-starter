@@ -5,41 +5,28 @@ import * as BooksAPI from '../BooksAPI'
 
 class SearchBooks extends Component {
   state = {
-    loading: true,
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState(() => ({
-          loading: false,
-          books: books
-        }))
-      })
+    books: [],
+    query: ''
   }
 
   handleTyping = (query) => {
-    if (query) {
-      BooksAPI.search(query)
-        .then((books) => {
-          this.setState(() => {
-            if (Array.isArray(books) && books.length > 0) {
-              return { books: books }
+    BooksAPI.search(query)
+      .then((books) => {
+        this.setState(() => {
+          if (Array.isArray(books) && books.length > 0) {
+            return {
+              books: books,
+              query: query
             }
-            /* empty books array when BooksAPI returns 
-            an object on finding no books*/
-            else return { books: [] }
-          })
+          }
+          /* empty books array when BooksAPI returns 
+          an object on finding no books*/
+          else return {
+            books: [],
+            query: query
+          }
         })
-    } else {
-      BooksAPI.getAll()
-        .then((books) => {
-          this.setState(() => ({
-            books: books
-          }))
-        })
-    }
+      })
   }
 
   render() {
@@ -48,8 +35,9 @@ class SearchBooks extends Component {
         <SearchBooksBar handleTyping={this.handleTyping}></SearchBooksBar>
         <SearchBooksResults
           books={this.state.books}
-          loading={this.state.loading}>
-        </SearchBooksResults>
+          updateLibrary={this.props.updateLibrary}
+          bookStatus={this.props.bookStatus}
+          query={this.state.query}/>
       </div>
     )
   }

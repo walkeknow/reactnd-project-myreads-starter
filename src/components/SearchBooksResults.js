@@ -1,13 +1,22 @@
 import React from 'react'
 import BookList from './BookList'
 
-function SearchBooksResults({ books, loading }) {
+function SearchBooksResults({
+  books,
+  updateLibrary,
+  bookStatus,
+  query,
+}) {
   return (
     <div className="search-books-results">
-      {loading ? (
-        <span>Loading...</span>) : (
-          <BookList books={books}></BookList>
-        )}
+      {query && (books.length === 0) && (
+        <span>Sorry! No books found.</span>
+      )}
+      <BookList
+        books={books}
+        updateLibrary={updateLibrary}
+        bookStatus={bookStatus} />
+
     </div>
   )
 }

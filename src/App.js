@@ -3,6 +3,7 @@ import './App.css'
 import Library from './components/Library'
 import SearchBooks from './components/SearchBooks'
 import { Route } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
@@ -12,24 +13,39 @@ class BooksApp extends React.Component {
         shelf: 'Want to Read',
         title: '',
         authors: ['A', 'B'],
-        imageLinks : {
+        imageLinks: {
           thumbnail: ''
         }
       },
     ]
   }
+
+  bookStatus = () => {
+    return "none"
+  }
+
+  updateLibrary = (book, bookshelf) => {
+    if (bookshelf !== "none") {
+      BooksAPI.update(book, bookshelf)
+        .then(book => {
+          console.log(book)
+        })
+    }
+  }
+
   render() {
-    const {libraryBooks} = this.state
+    const { libraryBooks } = this.state
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <Library
-            libraryBooks={libraryBooks}></Library>
-        )}></Route>
+            libraryBooks={libraryBooks} />
+        )} />
         <Route path='/search' render={() => (
           <SearchBooks
-            libraryBooks={libraryBooks}></SearchBooks>
-        )}></Route>
+            updateLibrary={this.updateLibrary}
+            bookStatus={this.bookStatus} />
+        )} />
       </div>
     )
   }
