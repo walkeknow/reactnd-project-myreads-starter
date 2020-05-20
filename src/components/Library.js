@@ -3,13 +3,16 @@ import LibraryTitle from './LibraryTitle'
 import LibraryContent from './LibraryContent'
 import OpenSearch from './OpenSearch'
 
-function Library({libraryBooks}) {
+function Library({ libraryBooks, updateLibrary, bookStatus }) {
   return (
     <div>
       <div className="list-books">
-        <LibraryTitle></LibraryTitle>
-        <LibraryContent libraryBooks={libraryBooks}></LibraryContent>
-        <OpenSearch></OpenSearch>
+        <LibraryTitle />
+        <LibraryContent
+          libraryBooks={libraryBooks}
+          updateLibrary={updateLibrary}
+          bookStatus={bookStatus} />
+        <OpenSearch />
       </div>
 
     </div>

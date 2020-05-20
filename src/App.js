@@ -7,71 +7,29 @@ import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
-    libraryBooks: {
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
-    },
-    bookShelf: [
-
-    ]
+    libraryBooks: []
   }
 
   componentDidMount() {
     BooksAPI.getAll()
       .then((books) => {
-        this.setState(() => {
-          const currentlyReading = []
-          const wantToRead = []
-          const read = []
-          for (const book of books) {
-            if (book.shelf === 'currentlyReading') {
-              currentlyReading.push(book.id)
-            }
-            if (book.shelf === 'wantToRead') {
-              wantToRead.push(book.id)
-            }
-            if (book.shelf === 'read') {
-              read.push(book.id)
-            }
-          }
-          const bookObj = {
-            "currentlyReading": currentlyReading,
-            "wantToRead": wantToRead,
-            "read": read
-          }
-          console.log(bookObj)
-          return {
-            libraryBooks: bookObj
-          }
-        })
+        console.log(books)
+        this.setState(() => ({
+          libraryBooks: [...books]
+        }))
       })
   }
 
-  getBooksFromState = (books) => {
-    for (const bookId of books) {
-      BooksAPI.get(bookId)
-        .then((book) => {
-          console.log(book)
-        })
-    }
-  }
-
   bookStatus = (bookId) => {
-    console.log(this.state.libraryBooks)
-    for (const [key, valueArray] of Object.entries(this.state.libraryBooks)) {
-      if (key === 'currentlyReading') {
-        if (valueArray.includes(bookId)) {
+    for (const book of this.state.libraryBooks) {
+      if (book.id === bookId) {
+        if (book.shelf === 'currentlyReading') {
           return 'currentlyReading'
         }
-      }
-      else if (key === 'wantToRead') {
-        if (valueArray.includes(bookId)) {
+        else if (book.shelf === 'wantToRead') {
           return 'wantToRead'
         }
-      }
-      else if (key === 'read') {
-        if (valueArray.includes(bookId)) {
+        else if (book.shelf === 'read') {
           return 'read'
         }
       }
@@ -82,10 +40,14 @@ class BooksApp extends React.Component {
   updateLibrary = (book, bookshelf) => {
     BooksAPI.update(book, bookshelf)
       .then(books => {
-        console.log('API:', books)
-        this.setState(() => ({
-          libraryBooks: {...books}
-        }))
+        console.log('update:', books)
+        BooksAPI.getAll()
+          .then(allBooks => {
+            console.log(allBooks)
+            this.setState(() => ({
+              libraryBooks: [...allBooks]
+            }))
+          })
       })
   }
 
@@ -95,7 +57,9 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route exact path='/' render={() => (
           <Library
-            libraryBooks={libraryBooks} />
+            libraryBooks={libraryBooks}
+            updateLibrary={this.updateLibrary}
+            bookStatus={this.bookStatus} />
         )} />
         <Route path='/search' render={() => (
           <SearchBooks
