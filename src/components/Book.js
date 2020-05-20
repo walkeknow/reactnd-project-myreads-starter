@@ -4,8 +4,10 @@ function Book({ book, updateLibrary, bookStatus }) {
   return (
     <div className="book">
       <div className="book-top">
-        {book.imageLinks && book.imageLinks.thumbnail && (
+        {book.imageLinks && book.imageLinks.thumbnail ? (
           <div className="book-cover" style={{ width: 128, height: 170, backgroundImage: `url('${book.imageLinks.thumbnail}')` }}></div>
+        ) : (
+          <div className="book-cover" style={{ width: 128, height: 170, backgroundColor: "grey" }}></div>
         )}
         <div className="book-shelf-changer">
           <select value={bookStatus(book.id)} onChange={(event) => updateLibrary(book, event.target.value)}>

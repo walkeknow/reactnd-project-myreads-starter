@@ -8,4 +8,4 @@ function LibraryTitle() {
   )
 }
 
-export default LibraryTitle
+export default React.memo(LibraryTitle)

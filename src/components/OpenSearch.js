@@ -13,4 +13,4 @@ function OpenSearch({ changePage }) {
   )
 }
 
-export default OpenSearch
+export default React.memo(OpenSearch)
