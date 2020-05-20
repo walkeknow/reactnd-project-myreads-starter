@@ -8,7 +8,7 @@ function Book({ book, updateLibrary, bookStatus }) {
           <div className="book-cover" style={{ width: 128, height: 170, backgroundImage: `url('${book.imageLinks.thumbnail}')` }}></div>
         )}
         <div className="book-shelf-changer">
-          <select value={bookStatus()} onChange={(event) => updateLibrary(book, event.target.value)}>
+          <select value={bookStatus(book.id)} onChange={(event) => updateLibrary(book, event.target.value)}>
             <option value="move" disabled>Move to...</option>
             <option
               value="currentlyReading">

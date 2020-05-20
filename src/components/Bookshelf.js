@@ -1,6 +1,16 @@
 import React from 'react'
 import BookList from './BookList'
 
+/* componentDidMount() {
+  BooksAPI.getAll()
+  .then((books) => {
+    console.log(books)
+    this.setState(()=>({
+      libraryBooks: books
+    }))
+  })
+} */
+
 function Bookshelf({ title, books }) {
   return (
     <div className="bookshelf">

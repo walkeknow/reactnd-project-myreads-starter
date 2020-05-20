@@ -7,28 +7,76 @@ import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
-    libraryBooks: [
-      {
-        id: '',
-        shelf: 'Want to Read',
-        title: '',
-        authors: ['A', 'B'],
-        imageLinks: {
-          thumbnail: ''
-        }
-      },
-    ]
+    libraryBooks: {
+      currentlyReading: [],
+      wantToRead: [],
+      read: []
+    },
   }
 
-  bookStatus = () => {
-    return "none"
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => {
+          const currentlyReading = []
+          const wantToRead = []
+          const read = []
+          for (const book of books) {
+            if (book.shelf === 'currentlyReading') {
+              currentlyReading.push(book.id)
+            }
+            if (book.shelf === 'wantToRead') {
+              wantToRead.push(book.id)
+            }
+            if (book.shelf === 'read') {
+              read.push(book.id)
+            }
+          }
+          const bookObj = {
+            "currentlyReading": currentlyReading,
+            "wantToRead": wantToRead,
+            "read": read
+          }
+          console.log(bookObj)
+          return {
+            libraryBooks: bookObj
+          }
+        })
+      })
+  }
+
+  bookStatus = (bookId) => {
+    for (const [key, valueArray] of Object.entries(this.state.libraryBooks)) {
+      if (key === 'currentlyReading') {
+        if (valueArray.includes(bookId)) {
+          return 'currentlyReading'
+        }
+      }
+      else if (key === 'wantToRead') {
+        if (valueArray.includes(bookId)) {
+          return 'wantToRead'
+        }
+      }
+      else if (key === 'read') {
+        if (valueArray.includes(bookId)) {
+          return 'read'
+        }
+      }
+      else {
+        console.log("reached")
+        return 'none'
+      }
+    }
   }
 
   updateLibrary = (book, bookshelf) => {
     if (bookshelf !== "none") {
       BooksAPI.update(book, bookshelf)
-        .then(book => {
-          console.log(book)
+        .then(books => {
+          console.log('API:', books)
+          this.setState(() => ({
+            libraryBooks: books
+          }))
         })
     }
   }
