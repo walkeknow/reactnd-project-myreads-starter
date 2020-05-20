@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 function SearchBooksBar({handleTyping}) {
   return (
@@ -18,6 +19,10 @@ function SearchBooksBar({handleTyping}) {
       </div>
     </div>
   )
+}
+
+SearchBooksBar.propTypes = {
+  handleTyping: PropTypes.func.isRequired
 }
 
 export default SearchBooksBar

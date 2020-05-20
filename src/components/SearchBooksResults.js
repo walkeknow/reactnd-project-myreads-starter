@@ -1,5 +1,6 @@
 import React from 'react'
 import BookList from './BookList'
+import PropTypes from 'prop-types'
 
 function SearchBooksResults({
   books,
@@ -19,6 +20,13 @@ function SearchBooksResults({
 
     </div>
   )
+}
+
+SearchBooksResults.propTypes = {
+  books: PropTypes.array.isRequired,
+  updateLibrary: PropTypes.func.isRequired,
+  bookStatus: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired
 }
 
 export default SearchBooksResults

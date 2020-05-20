@@ -1,5 +1,6 @@
 import React from 'react'
 import Bookshelf from './Bookshelf'
+import PropTypes from 'prop-types'
 
 function LibraryContent({ libraryBooks, updateLibrary, bookStatus }) {
   const titles = [
@@ -32,6 +33,12 @@ function LibraryContent({ libraryBooks, updateLibrary, bookStatus }) {
       </div>
     </div>
   )
+}
+
+LibraryContent.propTypes = {
+  libraryBooks: PropTypes.array.isRequired,
+  updateLibrary: PropTypes.func.isRequired,
+  bookStatus: PropTypes.func.isRequired
 }
 
 export default LibraryContent
