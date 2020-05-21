@@ -34,11 +34,7 @@ function Book({ book, updateLibrary, bookStatus }) {
       </div>
       <div className="book-title">{book.title}</div>
       <div className="book-authors">
-        {book.authors && (
-          book.authors.map((author, index) => (
-            <span key={index}>{author}<br /></span>
-          )))
-        }
+        {book.authors && book.authors.join(', ')}
       </div>
     </div>
 

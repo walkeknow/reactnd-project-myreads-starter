@@ -7,10 +7,11 @@ function SearchBooksResults({
   updateLibrary,
   bookStatus,
   query,
+  typing
 }) {
   return (
     <div className="search-books-results">
-      {query && (books.length === 0) && (
+      {query && (books.length === 0) && !typing && (
         <span>Sorry! No books found.</span>
       )}
       <BookList
