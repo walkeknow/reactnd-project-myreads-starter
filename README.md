@@ -1,6 +1,6 @@
 # MyReads Project
 
-A Book Tracking App in React.js
+A Book Tracking App built with React.js
 
 ## How to use
 * install all project dependencies with `npm install`
