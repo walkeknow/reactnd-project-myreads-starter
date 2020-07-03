@@ -1,4 +1,4 @@
-# MyReads Project
+# MyReads
 
 A Book Tracking App built with React.js
 
