@@ -7,15 +7,15 @@ import PropTypes from 'prop-types'
 function Library({ libraryBooks, updateLibrary, bookStatus }) {
   return (
     <div>
-      <div className="list-books">
+      <div className='list-books'>
         <LibraryTitle />
         <LibraryContent
           libraryBooks={libraryBooks}
           updateLibrary={updateLibrary}
-          bookStatus={bookStatus} />
+          bookStatus={bookStatus}
+        />
         <OpenSearch />
       </div>
-
     </div>
   )
 }
@@ -23,7 +23,7 @@ function Library({ libraryBooks, updateLibrary, bookStatus }) {
 Library.propTypes = {
   libraryBooks: PropTypes.array.isRequired,
   updateLibrary: PropTypes.func.isRequired,
-  bookStatus: PropTypes.func.isRequired
+  bookStatus: PropTypes.func.isRequired,
 }
 
 export default Library

@@ -8,16 +8,15 @@ import NoMatch from './components/NoMatch'
 
 class BooksApp extends React.Component {
   state = {
-    libraryBooks: []
+    libraryBooks: [],
   }
 
   componentDidMount() {
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState(() => ({
-          libraryBooks: [...books]
-        }))
-      })
+    BooksAPI.getAll().then((books) => {
+      this.setState(() => ({
+        libraryBooks: [...books],
+      }))
+    })
   }
 
   bookStatus = (bookId) => {
@@ -25,11 +24,9 @@ class BooksApp extends React.Component {
       if (book.id === bookId) {
         if (book.shelf === 'currentlyReading') {
           return 'currentlyReading'
-        }
-        else if (book.shelf === 'wantToRead') {
+        } else if (book.shelf === 'wantToRead') {
           return 'wantToRead'
-        }
-        else if (book.shelf === 'read') {
+        } else if (book.shelf === 'read') {
           return 'read'
         }
       }
@@ -38,38 +35,44 @@ class BooksApp extends React.Component {
   }
 
   updateLibrary = (book, bookshelf) => {
-    BooksAPI.update(book, bookshelf)
-      .then(() => {
-        BooksAPI.getAll()
-          .then(allBooks => {
-            this.setState(() => ({
-              libraryBooks: [...allBooks]
-            }))
-          })
+    BooksAPI.update(book, bookshelf).then(() => {
+      BooksAPI.getAll().then((allBooks) => {
+        this.setState(() => ({
+          libraryBooks: [...allBooks],
+        }))
       })
+    })
   }
 
   render() {
     const { libraryBooks } = this.state
     return (
-      <div className="app">
+      <div className='app'>
         <Switch>
-          <Route exact path='/' render={() => (
-            <Library
-              libraryBooks={libraryBooks}
-              updateLibrary={this.updateLibrary}
-              bookStatus={this.bookStatus} />
-          )} />
-          <Route exact path='/search' render={() => (
-            <SearchBooks
-              updateLibrary={this.updateLibrary}
-              bookStatus={this.bookStatus} />
-          )} />
+          <Route
+            exact
+            path='/'
+            render={() => (
+              <Library
+                libraryBooks={libraryBooks}
+                updateLibrary={this.updateLibrary}
+                bookStatus={this.bookStatus}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/search'
+            render={() => (
+              <SearchBooks
+                updateLibrary={this.updateLibrary}
+                bookStatus={this.bookStatus}
+              />
+            )}
+          />
           {/* using "exact" and redirecting users to /search removes valid results for search/abc, thus giving better UX */}
           <Redirect from='/search/*' to='/search' />
-          <Route render={({ location }) => (
-            <NoMatch location={location}/>
-          )}></Route>
+          <Route render={({ location }) => <NoMatch location={location} />} />
         </Switch>
       </div>
     )

@@ -4,14 +4,16 @@ import PropTypes from 'prop-types'
 
 function BookList({ books, updateLibrary, bookStatus }) {
   return (
-    <ol className="books-grid">
+    <ol className='books-grid'>
       {books.map((book, index) => (
         <li key={index}>
           <Book
             book={book}
             updateLibrary={updateLibrary}
-            bookStatus={bookStatus} />
-        </li>))}
+            bookStatus={bookStatus}
+          />
+        </li>
+      ))}
     </ol>
   )
 }

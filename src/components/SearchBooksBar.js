@@ -4,16 +4,18 @@ import PropTypes from 'prop-types'
 
 function SearchBooksBar({ handleTyping }) {
   return (
-    <div className="search-books-bar">
-      <Link to={{
-        pathname: '/'
-      }}>
-        <button className="close-search">Close</button>
+    <div className='search-books-bar'>
+      <Link
+        to={{
+          pathname: '/',
+        }}
+      >
+        <button className='close-search'>Close</button>
       </Link>
-      <div className="search-books-input-wrapper">
+      <div className='search-books-input-wrapper'>
         <input
-          type="text"
-          placeholder="Search by title or author"
+          type='text'
+          placeholder='Search by title or author'
           onChange={(event) => handleTyping(event.target.value)}
         />
       </div>
@@ -22,7 +24,7 @@ function SearchBooksBar({ handleTyping }) {
 }
 
 SearchBooksBar.propTypes = {
-  handleTyping: PropTypes.func.isRequired
+  handleTyping: PropTypes.func.isRequired,
 }
 
 export default SearchBooksBar
